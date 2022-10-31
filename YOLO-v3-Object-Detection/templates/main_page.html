@@ -102,26 +102,6 @@
                 </div>
             </div>
         </section>
-    <div class = "food_content">
-        <table style="border: 1px solid;">
-            <thead></thead>
-            <tbody>
-                {% for i in search_food %}
-                <tr>
-                    <td>{{ i.CKG_NM }}</td>
-                    <td>{{ i.CKG_MTH_ACTO_NM }}</td>
-                    <td>{{ i.CKG_STA_ACTO_NM }}</td>
-                    <td>{{ i.CKG_KND_ACTO_NM }}</td>
-                    <td>{{ i.CKG_IPDC }}</td>
-                    <td>{{ i.CKG_MTRL_CN }}</td>
-                    <td>{{ i.CKG_INBUN_NM }}</td>
-                    <td>{{ i.CKG_DODF_NM }}</td>
-                    <td>{{ i.CKG_TIME_NM }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 </div>
  <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

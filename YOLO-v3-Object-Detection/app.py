@@ -21,14 +21,16 @@ def main():
 def test():
     return render_template('/index.html')
 
+#DB에서 json 형태로 값 가져오기 검색 결과 창
 @app.route('/search_food', methods = ['GET', 'POST'])
 def food_api():
     a = request.form.get("id_name")
     a = a.split(' ')
     print(a)
     search_food = MyEmpDao().getEmps(a)
-    return render_template("main_page.html", search_food=search_food)
+    return render_template("result_page.html", search_food=search_food)
 
+# youtube api
 @app.route('/video', methods = ['GET', 'POST'])
 def get_video():
     v_id = video_id()
