@@ -43,7 +43,6 @@
         <div class = "main_box">
             <nav id="topMenu" >
                 <ul>
-                    <li><a class="menuLink" href="#">지역 농산물</a></li>
                     <li><a class="menuLink" href="#">레시피</a></li>
                     <li><a class="menuLink" href="#">사용 방법</a></li>
                 </ul>
@@ -60,8 +59,8 @@
                 	<div class="modal_content"  align = "center">
                         <button type="button" class ="btn-close-popup">X</button>
 
-                <form action="/search_food" method="post" class="input-form">
-                    <textarea type="text" name='id_name' value="" class="input-text"></textarea>
+                <form action='/search_food' method="post" enctype="multipart/form-data" class="input-form">
+                    <input type="file" accept = "image/jpeg" name='id_name' value="" class="input-text"/>
                     <input type="submit" value="submit" class="input-btn" id = "close">
                 </form>
                     </div>
@@ -82,8 +81,6 @@
   });
 
 </script>
-
-        <div class = "brocoli_main"></div>
     </div>
     </header>
             <!-- About-->

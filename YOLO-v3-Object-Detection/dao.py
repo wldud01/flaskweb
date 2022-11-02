@@ -6,14 +6,14 @@ class MyEmpDao:
         pass
 
     def getEmps(self, a):
-        ret = []
+        ret = []    # my sql 접근
         db = pymysql.connect(host='localhost', user='root', db='recipe', password='dbswldud04286!', charset='utf8')
         curs = db.cursor()
         mtr = len(a)
         sql = f"SELECT* FROM data WHERE "
         for i in range(0, mtr):
             if i == 0:
-                plus = f"CKG_MTRL_CN LIKE '%{str(a[i])}%'"
+                plus = f"CKG_MTRL_CN LIKE '%{str(a[i])}%' Limit 20;"
                 sql = sql + plus
             else:
                 plus = ' '+"AND" + ' ' + f"CKG_MTRL_CN LIKE '%{str(a[i])}%' "

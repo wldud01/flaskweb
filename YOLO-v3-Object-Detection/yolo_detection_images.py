@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 
+#img_path = 'images/person.jpg'
 def detectObjects(img_path):
     confidenceThreshold = 0.5
     NMSThreshold = 0.3
@@ -16,10 +17,16 @@ def detectObjects(img_path):
 
     net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 
-    image = cv2.imread(img_path)
+    #image = cv2.imread(img_path) #이미지 파일들을 flag 값에 따라 읽어드림
+    encoded = np.fromstring(img_path,dtype=np.uint8)
+    # byte mode로 읽었는데 data 정보를 uint8 형태로 반환하는 것을 알 수 있음 1D-array
+    # 그러고나서 encoded를 이미지 바이트 스트림을 3D-array로 만들어주어야 한다.
+    image = cv2.imdecode(encoded,cv2.IMREAD_COLOR)
+    print(type(image))
     (H, W) = image.shape[:2]
 
-    #Determine output layer names
+    #return numpy.ndarray
+    #Determine output layer names 파일 경로를 읽는 return은 이미지 객체 행렬
     layerName = net.getLayerNames()
     layerName = [layerName[i - 1] for i in net.getUnconnectedOutLayers()]
 
@@ -50,24 +57,30 @@ def detectObjects(img_path):
     detectionNMS = cv2.dnn.NMSBoxes(boxes, confidences, confidenceThreshold, NMSThreshold)
 
     outputs = {}
+    final = []
+    string_final =""
 
     #json으로 보여줌
     if len(detectionNMS)> 0:
         outputs['detections'] = {}
         outputs['detections']['labels']=[]
         for i in detectionNMS.flatten():
-            detection= {}
-            detection['Label']= labels[classIDs[i]]
-            detection['confidence'] = confidences[i]
-            detection['X'] = boxes[i][0]
-            detection['Y'] = boxes[i][1]
-            detection['Width'] = boxes[i][2]
-            detection['Height'] = boxes[i][3]
+            detection= {} # 여기에 json 정보 들어감 dictionary 형태
+            detection['Label']= labels[classIDs[i]] # key = value 값
+            final.append(labels[classIDs[i]]) # 리스트에 인식한 라벨 모두 넣기
+           # detection['confidence'] = confidences[i]
+            #detection['X'] = boxes[i][0]
+            #detection['Y'] = boxes[i][1]
+            #detection['Width'] = boxes[i][2]
+            #detection['Height'] = boxes[i][3]
+            print(type(labels[classIDs[i]]))
             outputs['detections']['labels'].append(detection)
     else:
         outputs['detections'] = 'No object detected'
 
-    return outputs
+    string_final =" ".join(final)
+    return string_final
+
 #print(labels[classIDs[i]])
 #print(confidences[i])
 #print(boxes[i][0])
