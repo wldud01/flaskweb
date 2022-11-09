@@ -11,6 +11,10 @@ app = Flask(__name__)
 def main():
     return render_template('/main_page.html')
 
+@app.route('/about')
+def about():
+    return render_template('/about.html')
+
 @app.route('/index')
 def test():
     return render_template('/index.html')
@@ -30,8 +34,9 @@ def food_api():
     #a = request.form.get("id_name")
     print(results)
     a = results.split(' ')
-    search_food = MyEmpDao().getEmps(a)
-    return render_template("result_page.html", search_food=search_food)
+    search_food = MyEmpDao().getEmps(a) # Database에서 음식 재료랑 이름 가져온 것
+    param = results  # 인식된 재료 이름
+    return render_template("result_page.html", search_food=search_food, result = param)
 
 @app.route('/myapp/detectObjects', methods = ['GET', 'POST'])
 def detect():
@@ -47,10 +52,12 @@ def detect():
 
 
 # youtube api
-#@app.route('/video', methods = ['GET', 'POST'])
-#def get_video():
-#    v_id = video_id()
+@app.route('/recipe_video', methods = ['GET', 'POST'])
+def get_video():
+    dish = request.form['food']
+#    v_id = video_id() # youtube 불러오는 api가 연결된 spript
 #    return render_template('recipe_video.html', v_id=v_id)
+    return render_template('recipe_video.html', dish = dish)
 
 
 if __name__ == "__main__":

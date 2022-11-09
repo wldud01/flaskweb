@@ -61,7 +61,7 @@ def detectObjects(img_path):
     string_final =""
 
     #json으로 보여줌
-    if len(detectionNMS)> 0:
+    if len(detectionNMS) > 0:
         outputs['detections'] = {}
         outputs['detections']['labels']=[]
         for i in detectionNMS.flatten():
