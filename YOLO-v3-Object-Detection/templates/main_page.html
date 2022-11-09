@@ -81,14 +81,18 @@
 
                             <!--modal-->
             <div class = "modal" style="background-color:rgba(0, 0, 0, 0.4);">
-                <div class="modal-content" style="margin-left:7%;margin-top:30%; width:85%;">
+                <div class="modal-content" style="margin-left:20%;margin-top: 10%;width:60%;height: 40%;">
                 	<div class="modal-body"  align = "center">
-                        <button type="button" class ="btn-close-popup">X</button>
-
                 <form action='/search_food' method="post" enctype="multipart/form-data" class="input-form">
-                    <input type="file" accept = "image/jpeg" name='id_name' value="" class="input-text"/>
-                    <input type="submit" value="submit" class="input-btn" id = "close">
+                    <input type="file" accept = "image/*;capture=camera" name='id_name' value="" class="input-text" style="appearance: none; background:transparent"/>
+                    <div>
+                        <img  src="/static/img/pick.jpg" style="animation: none; width: 54%;top:39%;height:70%;position: absolute;visibility: visible;padding: 15px;left: 44%;">
+                        <input type="submit" value="완료" class="btn btn-outline-success" id="close" style="margin-top:10px;">
+                    </div>
                 </form>
+                    </div>
+                     <div class="cmd">
+                        <input type="button" name="btnclose" class="btn-close-popup" value="닫기">
                     </div>
                 </div>
             </div>
