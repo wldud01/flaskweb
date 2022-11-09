@@ -2,7 +2,11 @@ from flask import Flask,jsonify, request, render_template
 from yolo_detection_images import detectObjects
 from dao import MyEmpDao
 import googletrans
-#from y_video import video_id
+from y_video import video_id
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from oauth2client.tools import argparser
+import re
 
 
 app = Flask(__name__)
@@ -55,9 +59,23 @@ def detect():
 @app.route('/recipe_video', methods = ['GET', 'POST'])
 def get_video():
     dish = request.form['food']
-#    v_id = video_id() # youtube 불러오는 api가 연결된 spript
-#    return render_template('recipe_video.html', v_id=v_id)
-    return render_template('recipe_video.html', dish = dish)
+    DEVELOPER_KEY = 'AIzaSyAUyicTAp0THvJ51GgdJ2rX1ae9x1uDjkw'  # youtube api
+    YOUTUBE_API_SERVICE_NAME = 'youtube'
+    YOUTUBE_API_VERSION = 'v3'
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+    print(type(dish))
+      # app.py food_api 함수의 변수 사용하기
+    # q = keyword 여기 부분에 음식 키워드 넣기
+    search_response = youtube.search().list(
+        q=request.form['food'] +'만드는법',
+        order='relevance',
+        part='snippet',
+        maxResults=5
+    ).execute()
+
+    v_id = video_id(search_response) # youtube 불러오는 api가 연결된 spript
+    #return render_template('recipe_video.html', v_id=v_id)
+    return render_template('recipe_video.html', dish = dish, v_id=v_id)
 
 
 if __name__ == "__main__":
