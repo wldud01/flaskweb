@@ -12,13 +12,20 @@ class MyEmpDao:
         mtr = len(a)
         sql = f"SELECT* FROM data WHERE "
         for i in range(0, mtr):
-            if i == 0:
-                plus = f"CKG_MTRL_CN LIKE '%{str(a[i])}%' Limit 20;"
+            if mtr == 1:
+                plus = f"CKG_MTRL_CN LIKE '%{str(a[i])}%';"
                 sql = sql + plus
+            elif mtr != 1 and i == 0:
+                plus = f"CKG_MTRL_CN LIKE '%{str(a[i])}%'"
+                sql = sql + plus
+            elif i >= 1 and a[i] == a[i-1]:
+                print("same")
             else:
                 plus = ' '+"AND" + ' ' + f"CKG_MTRL_CN LIKE '%{str(a[i])}%' "
                 sql = sql + plus
+
             print(i, " ", sql)
+        sql = sql + ' Limit 20;'
         curs.execute(sql)
         rows = curs.fetchall()
         for e in rows:

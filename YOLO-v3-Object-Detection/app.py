@@ -31,15 +31,32 @@ def food_api():
     print(type(file))
     # img_path = 'images/' + img
     results = detectObjects(file)
-    translator = googletrans.Translator()
-    if results.isalpha(): # 영어로 인식된 경우 한글로 변경하는 googletrans api 사용
-        results = translator.translate(results, dest='ko')
-        results = results.text
-    #a = request.form.get("id_name")
     print(results)
     a = results.split(' ')
+    translator = googletrans.Translator()
+    print(a)
+    ttt = ""
+    for i in range(0, len(a)):
+        print(type(a[i]))
+        if a[i].isalpha() and i > 0: # 영어로 인식된 경우 한글로 변경하는 googletrans api 사용
+            results = translator.translate(a[i], dest='ko')
+            ttt = results.text + ' ' + ttt
+            print(ttt+'1')
+        elif a[i].isalpha() and i <= 0:  # 영어로 인식된 경우 한글로 변경하는 googletrans api 사용
+            results = translator.translate(a[i], dest='ko')
+            ttt = results.text
+            print(ttt + '2')
+        elif a[i].isalpha() is False and i <= 0:
+            ttt = results.text
+            print(ttt + '3')
+        else:
+            ttt = results.text + ' ' + ttt
+            print(ttt + '4')
+    print(ttt)
+    a = ttt
+    #a = request.form.get("id_name")
     search_food = MyEmpDao().getEmps(a) # Database에서 음식 재료랑 이름 가져온 것
-    param = results  # 인식된 재료 이름
+    param = a  # 인식된 재료 이름
     return render_template("result_page.html", search_food=search_food, result = param)
 
 @app.route('/myapp/detectObjects', methods = ['GET', 'POST'])
