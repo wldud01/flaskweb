@@ -1,6 +1,7 @@
 from flask import Flask,jsonify, request, render_template
 from yolo_detection_images import detectObjects
 from dao import MyEmpDao
+import dao
 import googletrans
 from y_video import video_id
 from googleapiclient.discovery import build
@@ -54,10 +55,12 @@ def food_api():
             print(ttt + '4')
     print(ttt)
     a = ttt
-    #a = request.form.get("id_name")
-    search_food = MyEmpDao().getEmps(a) # Database에서 음식 재료랑 이름 가져온 것
+    b = a.split(' ')
+    search_food = MyEmpDao().getEmps(b) # Database에서 음식 재료랑 이름 가져온 것
+     # DB 재료 가져오기
+
     param = a  # 인식된 재료 이름
-    return render_template("result_page.html", search_food=search_food, result = param)
+    return render_template("result_page.html", search_food=search_food,result = param)
 
 @app.route('/myapp/detectObjects', methods = ['GET', 'POST'])
 def detect():
@@ -84,12 +87,12 @@ def get_video():
       # app.py food_api 함수의 변수 사용하기
     # q = keyword 여기 부분에 음식 키워드 넣기
     search_response = youtube.search().list(
-        q=request.form['food'] +'만드는법',
+        #q=request.form['food'] +'만개의 레시피',
+        q= dish +'만개의 레시피',
         order='relevance',
         part='snippet',
         maxResults=5
     ).execute()
-
     v_id = video_id(search_response) # youtube 불러오는 api가 연결된 spript
     #return render_template('recipe_video.html', v_id=v_id)
     return render_template('recipe_video.html', dish = dish, v_id=v_id)
