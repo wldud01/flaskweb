@@ -83,6 +83,7 @@
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">골라 골라~</h5>
                     <h1 class="mb-5">당신의 재료 : {{result}}</h1>
                 </div>
+
                 <div class="row g-4">
                     {% for i in search_food %}
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -97,6 +98,22 @@
                                     <p>{{ i.CKG_DODF_NM }}</p>
                                     <p>{{ i.CKG_TIME_NM }}</p>
                                 </form>
+                                 <div class="div1" style="color:black">
+                                    {% for m in i.CKG_MTRL_CN %}
+                                 <a href="https://www.coupang.com/np/search?rocketAll=true&q={{m.split()[0]}}&brand=&offerCondition=&filter=&availableDeliveryFilter=&filterType=rocket_wow%2Ccoupang_global&isPriceRange=false&priceRange=&minPrice=&maxPrice=&page=1&trcid=&traid=&filterSetByUser=true&channel=user&backgroundColor=&searchProductCount=145607&component=&rating=0&sorter=scoreDesc&listSize=36">
+                                     <li>{{m}}</li>
+                                 </a>
+                                    {% endfor %}
+                    </div>
+                            <style>
+                            .div1{
+                                display:none;
+                            }
+                            .p-4:hover .div1{
+                              display: block;
+                              height:auto;
+                            }
+                            </style>
                             </div>
                         </div>
                     </div>

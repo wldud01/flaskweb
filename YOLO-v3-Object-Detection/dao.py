@@ -1,6 +1,6 @@
 import pymysql
 from flask import request
-
+import re
 class MyEmpDao:
     def __init__(self):
         pass
@@ -28,12 +28,21 @@ class MyEmpDao:
         sql = sql + ' Limit 20;'
         curs.execute(sql)
         rows = curs.fetchall()
+
         for e in rows:
             temp = {'CKG_NM': e[0], 'CKG_MTH_ACTO_NM': e[1], 'CKG_STA_ACTO_NM': e[2],
-                    'CKG_KND_ACTO_NM': e[3], 'CKG_IPDC': e[4], 'CKG_MTRL_CN': e[5]
+                    'CKG_KND_ACTO_NM': e[3], 'CKG_IPDC': e[4], 'CKG_MTRL_CN': e[5].split('|')
                 ,'CKG_INBUN_NM': e[6], 'CKG_DODF_NM': e[7], 'CKG_TIME_NM': e[8]
                     }
+            print(len(temp['CKG_MTRL_CN']))
+            for a in range(0,len(temp['CKG_MTRL_CN'])):
+                pattern = '\([^)]*\)'
+                ptr = '\[[^)]*\]'
+                text = re.sub(pattern=pattern, repl='', string=temp['CKG_MTRL_CN'][a])
+                te = re.sub(pattern=ptr, repl='', string=text)
+                temp['CKG_MTRL_CN'][a] = ' '.join(te.split())
             ret.append(temp)
+
         db.commit()
         db.close()
         return ret

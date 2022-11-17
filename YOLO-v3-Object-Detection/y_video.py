@@ -5,6 +5,7 @@ import re
 
 video = []
 def video_id(res):
+    video.clear()
     for i in range(0, 5):
         search_result = res.get("items", [])[i]
         print(search_result["id"]["videoId"])
