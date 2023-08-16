@@ -7,7 +7,7 @@ class MyEmpDao:
 
     def getEmps(self, a):
         ret = []    # my sql 접근
-        db = pymysql.connect(host='localhost', user='root', db='recipe', password='dbswldud04286!', charset='utf8')
+        db = pymysql.connect(host='localhost', user='root', db='recipe', password='', charset='utf8')
         curs = db.cursor()
         mtr = len(a)
         sql = f"SELECT* FROM data WHERE "
