@@ -3,9 +3,9 @@ from flask import jsonify
 
 # mysql imformation
 HOST = '127.0.0.1'
-PORT = 3306
+PORT = 
 USER = 'root'
-PASSWORD = 'dbswldud04286!'
+PASSWORD = 
 conn = pymysql.connect(host=HOST, port=PORT, user=USER, password=PASSWORD, database='recipe', charset='utf8')
 #-----------------------------------------------------------------
 
