@@ -49,7 +49,7 @@ class MyEmpDao:
 
     def insEmp(self, CKG_NM, CKG_MTH_ACTO_NM, CKG_STA_ACTO_NM, CKG_KND_ACTO_NM, CKG_IPDC, CKG_MTRL_CN
                     ,CKG_INBUN_NM, CKG_DODF_NM, CKG_TIME_NM):
-        db = pymysql.connect(host='localhost', user='root', db='recipe', password='dbswldud04286!', charset='utf8')
+        db = pymysql.connect(host='localhost', user='root', db='recipe', password='', charset='utf8')
         curs = db.cursor()
 
         sql = '''insert into emp (CKG_NM, CKG_MTH_ACTO_NM, CKG_STA_ACTO_NM, CKG_KND_ACTO_NM, CKG_IPDC, CKG_MTRL_CN
